@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+    
+}
+
+
+
+/* Navbar styles */
+nav {
+    background-color: #333;
+    overflow: hidden;
+    height: 50px;
+  }
+  
+  nav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+    font-size: medium;
+  }
+  
+  nav a:hover {
+    background-color: red;
+    color: maroon;
+    border-radius: 50%;
+  }
+  
+
+  /* Logo styles */
+    nav .Logo h1 {
+    font-size: 30px;
+    background-color: red;
+    justify-content: center;
+    height: 35px;
+    width: 45px;
+    padding-left: 5px;
+    margin: 5px;
+    text-align: left;
+    border-radius: 50%;
+  }

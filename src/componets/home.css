@@ -1,0 +1,26 @@
+/* Wrapper and root styles */
+.Wrapper ,
+#root {
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom left, darkgray, black);
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+}
+
+
+
+.group-container  {
+    display: flex;
+    justify-content: center; /* Horizontally center the image */
+    align-items: center; /* Vertically center the image */
+    
+  }
+  .group img{
+    padding: 10px;
+    max-width: 50%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain the image's aspect ratio */
+    
+  }
