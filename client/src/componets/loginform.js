@@ -10,7 +10,7 @@ const LoginForm = () => {
     return (
             <div className="page">
                 <div className="cover">
-                    <h1>Login/Sign UP</h1>
+                    <h1>Login</h1>
                     <input type='text' placeholder="Username"/>
                     <input type='password' placeholder="Password"/>
 
