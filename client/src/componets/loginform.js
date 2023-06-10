@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import './loginform.css'
+import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+export const LoginForm = () => {
     const [popupStyle, showPopup] = useState('hide')
     const popup = () => {
         showPopup('login-popup')
@@ -16,7 +17,7 @@ const LoginForm = () => {
 
                     <div className="login-btn" onClick={popup}>Login</div>
 
-                    <p className="text">Or login using</p>
+                    <Link to='/signup'><p className="text">Or Sign Up</p></Link>
 
                     <div className="alt-login">
                         <div className="facebook"></div>

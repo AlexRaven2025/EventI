@@ -1,26 +1,109 @@
 /* Wrapper and root styles */
-.Wrapper ,
+/* Wrapper and root styles */
+html,
+body,
+.Wrapper,
 #root {
-  min-height: 100vh;
-  background-image: linear-gradient(to bottom left, darkgray, black);
+  height: 100vh;
   margin: 0;
   padding: 0;
+  border: 0;
+  box-sizing: border-box;
 }
+
 body {
-  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Container styles */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Hero section styles */
+.hero {
+  background-image: url('../images/img1.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 0; /* Add this line to remove the bottom margin */
+}
+
+.hero-content {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #555;
+}
+
+/* Features section styles */
+.features {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2rem;
+  background-color: #fff;
+  margin-bottom: 0; /* Add this line to remove the bottom margin */
+}
+
+.feature {
+  width: 300px;
+  padding: 1.5rem;
+  margin: 1rem;
+  text-align: center;
+  border-radius: 0.25rem;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+.feature h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature p {
+  font-size: 1rem;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 0;
+  
+  text-align: center;
 }
 
 
 
-.group-container  {
-    display: flex;
-    justify-content: center; /* Horizontally center the image */
-    align-items: center; /* Vertically center the image */
-    
-  }
-  .group img{
-    padding: 10px;
-    max-width: 50%; /* Ensure the image doesn't exceed its container */
-    height: auto; /* Maintain the image's aspect ratio */
-    
-  }
+

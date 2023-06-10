@@ -1,0 +1,40 @@
+/* Navbar styles */
+nav {
+    background-color: #333;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px 18px;
+    text-decoration: none;
+    font-size: medium;
+  }
+  
+  nav a:hover {
+    background-color: red;
+    color: maroon;
+    border-radius: 50%;
+  }
+  
+
+  nav .Logo h1 {
+    font-size: 24px; /* Adjust the font size to your preference */
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px; /* Adjust the height to your preference */
+    width: 40px; /* Adjust the width to your preference */
+    padding: 5px; /* Adjust the padding to your preference */
+    margin: 5px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff; /* Add a text color for better visibility */
+    font-weight: bold; /* Add font weight for emphasis */
+  }
+ 
