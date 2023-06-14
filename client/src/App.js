@@ -4,7 +4,7 @@ import {Home} from './componets/home.js';
 import { NavBar } from './componets/NavBar.js';
 import {LoginForm} from './componets/loginform.js';
 import {SignUp} from './componets/sign_up.js';
-
+import {Events} from './componets/events.js';
 function App() {
   const location = useLocation();
   const hideNavBar = location.pathname === '/signup';
@@ -15,6 +15,7 @@ function App() {
       <Route path='/' element={<Home />} />
       <Route path='login' element={<LoginForm/>} />
       <Route path='SignUp' element={<SignUp/>} />
+      <Route path='Events'  element={<Events/>} />
     </Routes>
     </>
   );

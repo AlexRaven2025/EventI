@@ -1,4 +1,5 @@
 import './home.css'
+import { Link } from "react-router-dom";
 export const Home = () => {
         return (
           <div className="home-container">
@@ -8,7 +9,7 @@ export const Home = () => {
             <div className="hero-content">
               <h1>Welcome to the Event Manager</h1>
               <p>Plan, Organize, and Manage Your Events with Ease</p>
-              <a href="/events" className="cta-button">Explore Events</a>
+              <Link to='/Events'><a href="/events" className="cta-button">Explore Events</a></Link>
             </div>
           </section>
     

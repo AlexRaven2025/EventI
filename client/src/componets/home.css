@@ -3,6 +3,7 @@
 html,
 body,
 .Wrapper,
+.main-container,
 #root {
   height: 100vh;
   margin: 0;
