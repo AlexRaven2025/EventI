@@ -65,3 +65,15 @@
     width: 1420px;
     border-bottom-right-radius: 3%
 }  
+.Event-cards {
+    display:flex;
+    position: fixed;
+    height: 10rem;
+    justify-content: flex-start;
+    margin-top: 5em;
+    background-color: lightgray;
+    border-radius: 5%;
+    border-style: solid;
+    border: 2px;
+    border-color: gray;
+}

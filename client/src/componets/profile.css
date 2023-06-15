@@ -1,0 +1,44 @@
+.profile-container {
+    display: flex;
+    flex-direction: column; /* Change the flex-direction to column */
+    background-color: gray;
+    height: 100em;
+    width: 20em;
+    justify-content: flex-start; /* Aligns the content at the top */
+    align-items: center; /* Centers the content horizontally */
+}
+
+.profile-image {
+    /* height: 2em; */
+    width: auto;
+    padding: 2em;
+    margin: 1em;
+    align-self: flex-start; /* Aligns the image at the top */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dash-links {
+    display: flex;
+    flex-direction: column; /* Set the flex-direction to column */
+    align-items: center; /* Centers the content horizontally */
+    margin-top: 0; /* Remove the margin-top */
+    width: 20em;
+    border-radius: 5%;
+}
+.dash-links button{
+    width: 24em;
+    height: 5em;
+    border-radius: 5%;
+    background-color: rgb(145, 145, 145);
+    border-top: solid;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.dash-links button:hover {
+    text-decoration: underline;
+    text-decoration-color: red;
+    color: red;
+}
+
