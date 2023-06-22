@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/home', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -39,18 +39,19 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-// start database connecton
-console.log("started database connection")
 
+// // ------ start database connecton --------
+// console.log("started database connection")
 // var mysql = require('mysql');
 
 // var con = mysql.createConnection({
 //   host: "127.0.0.1",
 //   user: "root",
-//   password: ""
+//   password: "RootUser"
 // });
 
 // con.connect(function(err) {
 //   if (err) throw err;
 //   console.log("Connected!");
 // });
+// module.exports = con;
