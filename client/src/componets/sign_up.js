@@ -1,7 +1,7 @@
 import {useRef, useEffect,useState } from 'react';
 import './/sign_up.css'
 import { Link } from 'react-router-dom';
-import LoginForm from './loginform';
+import  './loginform.js';
   const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,15}$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,15}$/;
 export const SignUp = () => {
@@ -138,7 +138,7 @@ export const SignUp = () => {
                     <button disabled={!validName || !validPwd || !vaildMatch ? true : false}>Sign Up</button>
                     <p>
                         Already registered?<br/>
-                        <span className='line'><Link to={LoginForm}>Login</Link></span>
+                        <span className='line'><Link to='./loginform'>Login</Link></span>
                     </p>
                 </form>
             </div>

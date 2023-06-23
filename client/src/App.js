@@ -6,6 +6,7 @@ import {LoginForm} from './componets/loginform.js';
 import {SignUp} from './componets/sign_up.js';
 import {Events} from './componets/events.js';
 import {Profil} from './componets/profile.js';
+
 function App() {
   const location = useLocation();
   const hideNavBar = location.pathname === '/signup';
