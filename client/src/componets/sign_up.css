@@ -1,82 +1,115 @@
+/* sign_up.css */
 
-.sign-up-container{
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    box-sizing: border-box;
+/* Container styles */
+.sign-up-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(to bottom left, darkgray, black);
 }
+
+/* Form styles */
 .Cover {
-    background-color: white;
-    width: 30em;
-    height: 35em;
-    position: relative;
-    border-radius: 1em;
-    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
-    display: flex;
-    flex-direction: column;
-    justify-content:space-around;
-    align-items: center;
-}
-input {
-    padding: 0;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
 }
 
-.terms-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .terms-box {
-    margin-right: 5px;
-    border-radius: 5px;
-    height: 16px;
-    width: 16px;
-  }
-  .terms-box.checked {
-    background-color: green; /* Change to desired color */
-  }
-  
- 
-
-  .Alt-login {
-    width: 65%;
-    height: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    margin-bottom: 1em;
+.Cover h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.Alt-login div {
-    width: 45%;
-    height:90%;
-    border-radius: 0.25em;
-    background-color: white;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    align-self: center;
-    cursor: pointer;
+.Cover label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.gmail {background-image: url('../images/google.png');}
-.facebook {background-image: url('../images/facebook.png');}
-
-
-input:focus {
-    outline-color: 32, 177, 255;
+.Cover input[type='text'],
+.Cover input[type='password'] {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
-.login-Btn {
-    width: 40%;
-    height: 3em;
-    background-color: rgb(32, 177, 255);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition:0.5s;
-    border-radius: 0.25em;
-    cursor: pointer;
+
+.Cover input[type='text']:focus,
+.Cover input[type='password']:focus {
+  outline: none;
+  border-color: red;
+}
+
+.Cover .instructions {
+  margin-top: 5px;
+  font-size: 14px;
+  color: black;
+}
+
+.Cover .terms-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.Cover .terms-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.Cover .terms-box.checked {
+  background-color: red;
+  border-color: #6c63ff;
+}
+
+.Cover .terms-container p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.Cover button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: red;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Cover button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.Cover p {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.Cover p .line {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 3px;
+}
+
+/* Error message styles */
+.errmsg {
+  color: red;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* Offscreen element styles */
+.offscreen {
+  position: absolute;
+  left: -9999px;
 }
