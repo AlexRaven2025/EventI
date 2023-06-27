@@ -14,7 +14,8 @@ export const LoginForm = () => {
         username,
         password,
       });
-
+      // Use the response data as needed
+      console.log(response.data);
       // Handle successful login response
       // Redirect or update the UI accordingly
     } catch (error) {
