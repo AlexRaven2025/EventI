@@ -10,19 +10,38 @@ export const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("/users", {
+      // Verify if the user exists
+      const verifyResponse = await axios.post("/users/verify", {
         username,
         password,
       });
-      // Use the response data as needed
-      console.log(response.data);
-      // Handle successful login response
-      // Redirect or update the UI accordingly
+
+      if (verifyResponse.status === 200) {
+        // User exists, perform login
+        const loginResponse = await axios.post("/users", {
+          username,
+          password,
+        });
+
+        // Use the login response data as needed
+        console.log(loginResponse.data);
+        // Handle successful login response
+        // Redirect or update the UI accordingly
+      } else {
+        // User does not exist, display error message
+        setPopupStyle("login-popup");
+        setTimeout(() => setPopupStyle("hide"), 3000);
+      }
     } catch (error) {
-      // Handle login error
-      // Display error messages to the user
-      setPopupStyle("login-popup");
-      setTimeout(() => setPopupStyle("hide"), 3000);
+      if (error.response && error.response.status === 404) {
+        // User does not exist, display error message
+        setPopupStyle("login-popup");
+        setTimeout(() => setPopupStyle("hide"), 3000);
+      } else {
+        // Handle other login errors
+        console.error("Login error:", error);
+        // Display generic error message or take appropriate action
+      }
     }
   };
 
