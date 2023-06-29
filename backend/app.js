@@ -17,12 +17,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve static files from the build directory
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 app.use(session({
   secret: '187380bd17dc54b817c1989e0543665d17a9ccb5',
   resave: false,
   saveUninitialized: true
 }));
+
 app.use('/home', indexRouter);
 app.use('/users', usersRouter);
 
@@ -43,19 +47,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
-// // ------ start database connecton --------
-// console.log("started database connection")
-// var mysql = require('mysql');
-
-// var con = mysql.createConnection({
-//   host: "127.0.0.1",
-//   user: "root",
-//   password: "RootUser"
-// });
-
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
-// module.exports = con;
