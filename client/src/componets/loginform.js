@@ -22,6 +22,7 @@ export const LoginForm = () => {
         console.log(response.data);
         // Handle successful login response
         // Redirect or update the UI accordingly
+        // Redirect the user to their profile page
       } else {
         // User does not exist, display error message
         setPopupStyle("login-popup");

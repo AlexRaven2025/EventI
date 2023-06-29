@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
+
 var pool = require('../DBConfig.js');
 var cors = require('cors');
+const session = require('express-session');
 router.use(cors());
+
 // -----All routes are starting with /users-----
 // POST route to create a new user
 router.post('/', function(req, res, next) {
@@ -42,7 +45,7 @@ router.post('/', function(req, res, next) {
     });
   });
 });
-// -------------------------------------------------------------------------------------
+// ------------------------------------VERIFY The User-------------------------------------------------
 router.post('/verify', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
   var username = req.body.username; // Assuming the username is sent in the request body
@@ -73,7 +76,13 @@ router.post('/verify', function(req, res, next) {
         if (password === storedPassword) {
           // Password matches
           console.log('User verified');
-          return res.status(200).json({ message: 'User verified' });
+          
+          // Store the user_id in the session
+          req.session.user_id = results[0].user_id;
+
+          // Redirect the user to the profile page with JSON data
+          const redirectURL = 'http://localhost:3001/profile?message=User%20verified';
+          return res.redirect(redirectURL);
         } else {
           // Password does not match
           console.log('Invalid password');
@@ -86,5 +95,61 @@ router.post('/verify', function(req, res, next) {
       }
     });
   });
+});
+
+// ---------------------------user-Profile-route------------------------------
+// ---------------------------GET-User-Created-Events-------------------------
+router.get('/profile', function(req, res, next) {
+  const userId = req.session.user_id;
+
+  // Fetch the user's data from the database
+  pool.getConnection(function(err, connection) {
+    if (err) {
+      console.log('Failed to connect to the database:', err);
+      return res.status(500).json({ error: 'Failed to connect to the database' });
+    }
+
+    connection.query('SELECT * FROM eventi.users WHERE user_id = ?', [userId], function(err, userResults) {
+      if (err) {
+        connection.release();
+        console.log('Database query failed:', err);
+        return res.status(500).json({ error: 'Database query failed' });
+      }
+
+      if (userResults.length === 0) {
+        connection.release();
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const user = userResults[0];
+
+      // Fetch the events associated with the user from the database
+      connection.query('SELECT * FROM eventi.events WHERE user_id = ?', [userId], function(err, eventResults) {
+        connection.release();
+
+        if (err) {
+          console.log('Database query failed:', err);
+          return res.status(500).json({ error: 'Database query failed' });
+        }
+
+        // Render the profile view with the retrieved user and event data
+        res.render('profile', { user, events: eventResults });
+      });
+    });
+  });
+});
+// ----------------------------user-profile-image-----------------------------
+router.post('/profile/image', function(req, res, next) {
+  if (!req.files || !req.files.image) {
+    return res.status(400).json({ error: 'No image file provided' });
+  }
+
+  const imageFile = req.files.image;
+
+  // Process and store the image file as needed
+  // You can use libraries like multer or fs to handle file storage and manipulation
+
+  // Return the image URL or any relevant response
+  return res.status(200).json({ message: 'Image uploaded successfully' });
 });
 module.exports = router;
