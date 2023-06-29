@@ -9,7 +9,7 @@ export const Home = () => {
             <div className="hero-content">
               <h1>Welcome to the Event Manager</h1>
               <p>Plan, Organize, and Manage Your Events with Ease</p>
-              <Link to='/Events'><a href="/events" className="cta-button">Explore Events</a></Link>
+              <Link to='/events' className="cta-button">Explore Events</Link>
             </div>
           </section>
     

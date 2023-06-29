@@ -11,20 +11,15 @@ export const LoginForm = () => {
   const handleLogin = async () => {
     try {
       // Verify if the user exists
-      const verifyResponse = await axios.post("/users/verify", {
+      const response = await axios.post("http://localhost:3000/users/verify", {
         username,
         password,
+        
       });
-
-      if (verifyResponse.status === 200) {
+      if (response.status === 200) {
         // User exists, perform login
-        const loginResponse = await axios.post("/users", {
-          username,
-          password,
-        });
-
         // Use the login response data as needed
-        console.log(loginResponse.data);
+        console.log(response.data);
         // Handle successful login response
         // Redirect or update the UI accordingly
       } else {
