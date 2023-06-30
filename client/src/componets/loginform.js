@@ -23,6 +23,8 @@ export const LoginForm = () => {
         // Handle successful login response
         // Redirect or update the UI accordingly
         // Redirect the user to their profile page
+        const redirectURL = 'http://localhost:3001/profile?message=User%20verified';
+        window.location.href = redirectURL;
       } else {
         // User does not exist, display error message
         setPopupStyle("login-popup");

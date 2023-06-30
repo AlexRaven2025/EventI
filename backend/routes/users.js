@@ -81,8 +81,8 @@ router.post('/verify', function(req, res, next) {
           req.session.user_id = results[0].user_id;
 
           // Redirect the user to the profile page with JSON data
-          const redirectURL = 'http://localhost:3001/profile?message=User%20verified';
-          return res.redirect(redirectURL);
+          // const redirectURL = 'http://localhost:3001/profile?message=User%20verified';
+          return res.status(200).json({message:"User Verified"});
         } else {
           // Password does not match
           console.log('Invalid password');
