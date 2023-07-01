@@ -41,4 +41,21 @@
     text-decoration-color: red;
     color: red;
 }
-
+.profilCard-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  align-items: flex-start;
+  margin-left: 150em;
+  margin-top: -7em;
+  margin-left: 120em;
+  padding: 20em;
+  background-color: gray;
+  height: 15em;
+  width: 50em;
+  border-radius: 2%;
+}
+.profileCard{
+    display: flex;
+    justify-content: first baseline;
+}

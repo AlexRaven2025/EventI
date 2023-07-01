@@ -1,0 +1,13 @@
+.card-events{
+    display:flex ;
+    background-color: white;
+    height: 10em;
+    width: 50em;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+
+}
+.card-title, .card-text {
+    margin-left: 2em;
+
+}

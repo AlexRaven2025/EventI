@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './profile.css';
 import Button from 'react-bootstrap/Button';
+import {ProfileCard} from './Profile_event_card';
 
 export const Profile = () => {
   const [user, setUser] = useState(null);
@@ -60,6 +61,11 @@ export const Profile = () => {
         <Button variant="secondary" size="lg" active>
           Add Events
         </Button>
+      </div>
+      <div className="profilCard-Container">
+        <div className='profileCard'>
+        <ProfileCard/>
+        </div>
       </div>
     </div>
   );
