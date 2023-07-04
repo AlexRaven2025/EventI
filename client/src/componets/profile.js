@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './profile.css';
 import Button from 'react-bootstrap/Button';
-import {ProfileCard} from './Profile_event_card';
+import { ProfileCard } from './Profile_event_card';
 
 export const Profile = () => {
   const [user, setUser] = useState(null);
@@ -11,7 +11,9 @@ export const Profile = () => {
 
   useEffect(() => {
     // Fetch user profile data
-    axios.get('http://localhost:3000/users/profile')
+    axios.get('http://localhost:3000/users/profile', {
+      headers: { 'User-ID': sessionStorage.getItem('user_id') }
+    })
       .then(response => {
         setUser(response.data.user);
         setEvents(response.data.events);
@@ -26,7 +28,9 @@ export const Profile = () => {
     formData.append('image', selectedImage);
 
     // Make a POST request to the server to upload the image
-    axios.post('http://localhost:3000/users/profile/image', formData)
+    axios.post('http://localhost:3000/users/profile/image', formData, {
+      headers: { 'User-ID': sessionStorage.getItem('user_id') }
+    })
       .then(response => {
         // Handle the response, e.g., update the user profile with the image URL
         console.log('Image uploaded successfully');
@@ -64,7 +68,7 @@ export const Profile = () => {
       </div>
       <div className="profilCard-Container">
         <div className='profileCard'>
-        <ProfileCard/>
+          <ProfileCard/>
         </div>
       </div>
     </div>
