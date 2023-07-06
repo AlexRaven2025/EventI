@@ -21,6 +21,10 @@ export const LoginForm = () => {
         // Use the login response data as needed
         console.log(response.data);
         // Handle successful login response
+        //Store user login username 
+        localStorage.setItem("user_id", response.data.user_id);
+        console.log(response.data.user_id);
+
         // Redirect or update the UI accordingly
         // Redirect the user to their profile page
         const redirectURL = 'http://localhost:3001/profile?message=User%20verified';

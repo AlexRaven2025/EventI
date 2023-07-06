@@ -1,8 +1,5 @@
 var createError = require('http-errors');
 var express = require('express');
-const session = require('express-session');
-const pool = require('./DBConfig');
-const MySQLStore = require('express-mysql-session')(session);
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -19,19 +16,7 @@ app.use(cookieParser());
 // Serve static files from the build directory
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 // Configuration options for the session store
-const sessionStoreOptions = {
-  expiration: 86400000, // Session expiration time (in milliseconds), e.g., 24 hours
-  createDatabaseTable: false, // Do not create the sessions table as it already exists
-};
-// Create the session store
-const sessionStore = new MySQLStore(sessionStoreOptions, pool);
-module.exports.sessionStore = sessionStore;
-app.use(session({
-  secret: '187380bd17dc54b817c1989e0543665d17a9ccb5',
-  store: sessionStore,
-  resave: false,
-  saveUninitialized: true
-}));
+
 
 app.use('/home', indexRouter);
 app.use('/users', usersRouter);

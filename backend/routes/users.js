@@ -2,15 +2,6 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../DBConfig.js');
 const cors = require('cors');
-const session = require('express-session');
-const app = require('../app.js'); // Assuming app.js is in the parent directory
-const sessionStore = app.sessionStore;
-router.use(session({
- secret: '187380bd17dc54b817c1989e0543665d17a9ccb5',
-  resave: false,
-  saveUninitialized: true,
-  store: sessionStore
-}));
 router.use(cors());
 
 // ----------------------------------------------------------------------------------------------------
@@ -70,7 +61,7 @@ router.post('/verify', function(req, res, next) {
     }
 
     // Query the database to check if the user exists
-    connection.query('SELECT user_id, username, password FROM eventi.users WHERE username = ?', [username], function(err, results) {
+    connection.query('SELECT username, password FROM eventi.users WHERE username = ?', [username], function(err, results) {
       connection.release(); // Release the connection back to the pool
 
       if (err) {
@@ -78,23 +69,40 @@ router.post('/verify', function(req, res, next) {
         console.log('Database query failed:', err);
         return res.status(500).json({ error: 'Database query failed' });
       }
-      console.log('Results:', results);
+
       if (results.length > 0) {
         // User exists
         var storedPassword = results[0].password; // Assuming the password is stored in a column called "password"
 
         if (password === storedPassword) {
+          connection.query('SELECT user_id FROM eventi.users WHERE username = ?', [username], function(err, results) {
+            if (err) {
+              console.log('Database query failed:', err);
+              return res.status(500).json({ error: 'Database query failed' });
+            }
+            if (results.length > 0) {
+              const user_id = results[0].user_id;
+              // Send the user_id to the frontend
+              res.status(200).json({ user_id });
+            } else {
+              console.log('User not found');
+              return res.status(404).json({ error: 'User not found' });
+            }
+          });
+
           // Password matches
           console.log('User verified');
-          
-          // Store the user_id in the session
-          req.session.user_id = results[0].user_id;
-          console.log("Session_id -- " + req.session.user_id);
-          // Redirect the user to the profile page with JSON data
-          // const redirectURL = 'http://localhost:3001/profile?message=User%20verified';
-          res.status(200).json({ user_id: results[0].user_id });
+          // Update the user_state column in the users table
+          var userState = true;
+          connection.query('UPDATE eventi.users SET user_state = ? WHERE username = ?', [userState, username], function(err) {
+            if (err) {
+              // Handle database update error
+              console.log('Failed to update user state:', err);
+              return res.status(500).json({ error: 'Failed to update user state' });
+            }
+          });
         } else {
-          // Password does not match
+          // Invalid password
           console.log('Invalid password');
           return res.status(401).json({ error: 'Invalid password' });
         }
@@ -107,21 +115,21 @@ router.post('/verify', function(req, res, next) {
   });
 });
 
+
 // ----------------------------------------------------------------------------------------------------
 // ---------------------------user-Profile-route-------------------------------------------------------
 // ---------------------------GET-User-Created-Events--------------------------------------------------
 router.get('/profile', function(req, res, next) {
-  const userId = req.headers['user-id']; // Retrieve the user_id from the custom header
-  console.log("User ID:", userId);
-
-  // Fetch the user's data from the database using the provided userId
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  var userID = req.headers.user_id; // Assuming the userID is sent in the request body
+  console.log(userID);
   pool.getConnection(function(err, connection) {
     if (err) {
       console.log('Failed to connect to the database:', err);
       return res.status(500).json({ error: 'Failed to connect to the database' });
     }
 
-    connection.query('SELECT * FROM eventi.users WHERE user_id = ?', [userId], function(err, userResults) {
+    connection.query('SELECT username FROM eventi.users WHERE user_id = ?', [userID], function(err, userResults) {
       connection.release();
 
       if (err) {
@@ -134,16 +142,17 @@ router.get('/profile', function(req, res, next) {
       }
 
       const user = userResults[0];
+      console.log(user);
 
       // Fetch the events associated with the user from the database
-      connection.query('SELECT * FROM eventi.events WHERE user_id = ?', [userId], function(err, eventResults) {
+      connection.query('SELECT * FROM eventi.events WHERE user_id = ?', [userID], function(err, eventResults) {
         if (err) {
           console.log('Database query failed:', err);
           return res.status(500).json({ error: 'Database query failed' });
         }
 
         // Send the user and event data as a JSON response
-        res.status(200).json({ user, events: eventResults });
+        res.status(200).json({ user: user.username, events: eventResults });
       });
     });
   });

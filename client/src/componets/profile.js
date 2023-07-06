@@ -3,16 +3,18 @@ import axios from 'axios';
 import './profile.css';
 import Button from 'react-bootstrap/Button';
 import { ProfileCard } from './Profile_event_card';
-
+import { getUserID } from "./localStorage.js";
 export const Profile = () => {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const userID = getUserID();
+  console.log(userID);
 
   useEffect(() => {
     // Fetch user profile data
     axios.get('http://localhost:3000/users/profile', {
-      headers: { 'User-ID': sessionStorage.getItem('user_id') }
+      headers: { 'user_id': userID }
     })
       .then(response => {
         setUser(response.data.user);
@@ -21,7 +23,7 @@ export const Profile = () => {
       .catch(error => {
         console.error('Error fetching user profile:', error);
       });
-  }, []);
+  }, [userID]);
 
   const handleImageUpload = () => {
     const formData = new FormData();
@@ -29,7 +31,7 @@ export const Profile = () => {
 
     // Make a POST request to the server to upload the image
     axios.post('http://localhost:3000/users/profile/image', formData, {
-      headers: { 'User-ID': sessionStorage.getItem('user_id') }
+      headers: { 'user_id': userID} 
     })
       .then(response => {
         // Handle the response, e.g., update the user profile with the image URL

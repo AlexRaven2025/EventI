@@ -7,6 +7,7 @@ export const NavBar = () => {
         <Link to='/'>home</Link>
         <Link to='/Login'>login</Link>
         <Link to='/profil'>profile</Link>
+        <Link to='/EventCreateForm'>create event</Link>
         <div className='Logo'><h1>EI</h1></div>
     </nav>
   )
