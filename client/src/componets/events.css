@@ -4,7 +4,7 @@
     flex-direction: column;
     background-image: linear-gradient(to bottom left, darkgray, black);
 }
-.table-container{
+.table-events-container{
     min-height: 100vh;
 }
 .top-cover {

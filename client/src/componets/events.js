@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 export const Events = () => {
     return (
         <div className='main-container'>
-            <div className='table-container'>
+            <div className='table-events-container'>
                 <div className='top-cover'>
                     <div className='local-Events-top-cover'>
                         <h1>Events</h1>

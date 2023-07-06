@@ -121,7 +121,7 @@ router.post('/verify', function(req, res, next) {
 // ---------------------------GET-User-Created-Events--------------------------------------------------
 router.get('/profile', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-  var userID = req.headers.user_id; // Assuming the userID is sent in the request body
+  var userID = req.headers.user_id; // Assuming the userID is sent in the request headers
   console.log(userID);
   pool.getConnection(function(err, connection) {
     if (err) {
@@ -130,14 +130,14 @@ router.get('/profile', function(req, res, next) {
     }
 
     connection.query('SELECT username FROM eventi.users WHERE user_id = ?', [userID], function(err, userResults) {
-      connection.release();
-
       if (err) {
         console.log('Database query failed:', err);
+        connection.release();
         return res.status(500).json({ error: 'Database query failed' });
       }
 
       if (userResults.length === 0) {
+        connection.release();
         return res.status(404).json({ error: 'User not found' });
       }
 
@@ -146,6 +146,7 @@ router.get('/profile', function(req, res, next) {
 
       // Fetch the events associated with the user from the database
       connection.query('SELECT * FROM eventi.events WHERE user_id = ?', [userID], function(err, eventResults) {
+        connection.release();
         if (err) {
           console.log('Database query failed:', err);
           return res.status(500).json({ error: 'Database query failed' });
@@ -158,19 +159,5 @@ router.get('/profile', function(req, res, next) {
   });
 });
 
-// ---------------------------------------------------------------------------
-// ----------------------------user-profile-image-----------------------------
-router.post('/profile/image', function(req, res, next) {
-  if (!req.files || !req.files.image) {
-    return res.status(400).json({ error: 'No image file provided' });
-  }
 
-  const imageFile = req.files.image;
-
-  // Process and store the image file as needed
-  // You can use libraries like multer or fs to handle file storage and manipulation
-
-  // Return the image URL or any relevant response
-  return res.status(200).json({ message: 'Image uploaded successfully' });
-});
 module.exports = router;

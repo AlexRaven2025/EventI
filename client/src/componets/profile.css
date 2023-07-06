@@ -1,61 +1,88 @@
-.profile-container {
-    display: flex;
-    flex-direction: column; /* Change the flex-direction to column */
-    background-color: gray;
-    height: 100em;
-    width: 20em;
-    justify-content: flex-start; /* Aligns the content at the top */
-    align-items: center; /* Centers the content horizontally */
+.table-container {
+  width: 100%;
+  margin-right: 25em;
+  height: 200px; /* Set a maximum height for the tables */
+  /* margin-top: 46em; */
 }
 
-.profile-image {
-    /* height: 2em; */
-    width: auto;
-    padding: 2em;
-    margin: 1em;
-    align-self: flex-start; /* Aligns the image at the top */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.table-container table {
+  width: 80em;
+  border-collapse: collapse;
+}
+
+.table-container thead th {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px;
+}
+
+.table-container tbody tr:nth-of-type(odd) {
+  background-color: #515253;
+}
+
+.table-container tbody tr:hover {
+  background-color: #0b0c0c;
+}
+
+.table-container th,
+.table-container td {
+  padding: 10px;
+  text-align: center;
+}
+
+.table-container th:first-child,
+.table-container td:first-child {
+  text-align: left;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  background-color: gray;
+  min-height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
 }
 
 .dash-links {
-    display: flex;
-    flex-direction: column; /* Set the flex-direction to column */
-    align-items: center; /* Centers the content horizontally */
-    margin-top: 0; /* Remove the margin-top */
-    width: 20em;
-    border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 5%;
 }
-.dash-links button{
-    width: 24em;
-    height: 5em;
-    border-radius: 5%;
-    background-color: rgb(145, 145, 145);
-    border-top: solid;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
+
+.dash-links button {
+  width: 100%;
+  height: 50px;
+  border-radius: 5%;
+  background-color: rgb(145, 145, 145);
+  border: none;
+  margin-bottom: 10px;
 }
 
 .dash-links button:hover {
-    text-decoration: underline;
-    text-decoration-color: red;
-    color: red;
+  text-decoration: underline;
+  text-decoration-color: red;
+  color: red;
 }
-.profilCard-Container {
+
+.Card-Container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center the content vertically */
-  align-items: flex-start;
-  margin-left: 150em;
-  margin-top: -7em;
-  margin-left: 120em;
-  padding: 20em;
-  background-color: gray;
-  height: 15em;
-  width: 50em;
+  justify-content: center;
+  /* align-items: center; */
+  margin: 20px auto; /* Add margin and auto to horizontally center the container */
+  padding: 20px;
+  background-color: rgb(99, 97, 97);
+  height: 50em;
+  width: 80em; /* Set a maximum width for the container */
   border-radius: 2%;
+  
 }
-.profileCard{
-    display: flex;
-    justify-content: first baseline;
+.Card-Container > .table-container + .table-container {
+  margin-top: -36em; /* Add margin between tables */
+  margin-bottom: 12em;
 }
