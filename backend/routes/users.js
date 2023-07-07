@@ -122,38 +122,52 @@ router.post('/verify', function(req, res, next) {
 router.get('/profile', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
   var userID = req.headers.user_id; // Assuming the userID is sent in the request headers
-  console.log(userID);
   pool.getConnection(function(err, connection) {
     if (err) {
       console.log('Failed to connect to the database:', err);
       return res.status(500).json({ error: 'Failed to connect to the database' });
     }
 
-    connection.query('SELECT username FROM eventi.users WHERE user_id = ?', [userID], function(err, userResults) {
+    // Fetch the events associated with the user from the database
+    connection.query('SELECT * FROM eventi.events WHERE user_id = ?', [userID], function(err, eventResults) {
       if (err) {
         console.log('Database query failed:', err);
         connection.release();
         return res.status(500).json({ error: 'Database query failed' });
       }
 
-      if (userResults.length === 0) {
-        connection.release();
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      const user = userResults[0];
-      console.log(user);
-
-      // Fetch the events associated with the user from the database
-      connection.query('SELECT * FROM eventi.events WHERE user_id = ?', [userID], function(err, eventResults) {
-        connection.release();
+      // Fetch the event IDs associated with the user from the event_rsvped table
+      connection.query('SELECT event_id FROM eventi.event_rsvps WHERE user_id = ?', [userID], function(err, eventIDResults) {
         if (err) {
           console.log('Database query failed:', err);
+          connection.release();
           return res.status(500).json({ error: 'Database query failed' });
         }
 
-        // Send the user and event data as a JSON response
-        res.status(200).json({ user: user.username, events: eventResults });
+        // Extract the event IDs from the result
+        const eventIDs = eventIDResults.map((result) => result.event_id);
+
+        if (eventIDs.length === 0) {
+          // No rsvped events found for the user
+          connection.release();
+          return res.status(200).json({ events: eventResults, rsvped_events: [] });
+        }
+
+        // Fetch the rsvped events associated with the user from the events table
+        connection.query('SELECT * FROM eventi.events WHERE event_id IN (?)', [eventIDs], function(err, rsvpedEventResults) {
+          if (err) {
+            console.log('Database query failed:', err);
+            connection.release();
+            return res.status(500).json({ error: 'Database query failed' });
+          }
+
+          connection.release(); // Release the connection after the inner query is executed
+
+          console.log(eventResults, rsvpedEventResults); // Logging the correct variable name
+
+          // Send the user and event data as a JSON response
+          res.status(200).json({ events: eventResults, rsvped_events: rsvpedEventResults });
+        });
       });
     });
   });

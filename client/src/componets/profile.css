@@ -20,14 +20,15 @@
   background-color: #515253;
 }
 
-.table-container tbody tr:hover {
+/* .table-container tbody tr:hover {
   background-color: #0b0c0c;
-}
+} */
 
 .table-container th,
 .table-container td {
   padding: 10px;
   text-align: center;
+  color: whitesmoke;
 }
 
 .table-container th:first-child,
@@ -45,28 +46,48 @@
   padding: 20px;
 }
 
-.dash-links {
+.button-container1 {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  width: 100%;
-  border-radius: 5%;
-}
-
-.dash-links button {
-  width: 100%;
-  height: 50px;
-  border-radius: 5%;
+  width: 70em;
+  height: 4em;
   background-color: rgb(145, 145, 145);
-  border: none;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  margin-top: -0.5em;
+  border-top-left-radius: 10%;
+  border-top-right-radius: 10%;
+  
+
+}
+.button-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70em;
+  height: 4em;
+  background-color: rgb(145, 145, 145);
+  margin-bottom: 5px;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+  
+
 }
 
-.dash-links button:hover {
-  text-decoration: underline;
-  text-decoration-color: red;
-  color: red;
+.button-container1 button, .button-container2 button {
+  text-decoration: none;
+  background-color: rgb(145, 145, 145); 
+  height: 3em;
+  width: 7em;
+  border: none;
+}
+
+.button-container1 button:hover ,.button-container2 button:hover{
+  text-decoration: none;
+  background-color: red;
+  border-radius: 100%;
+  height: 3.7em;
+  width: 8em;
 }
 
 .Card-Container {
@@ -74,10 +95,10 @@
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
-  margin: 20px auto; /* Add margin and auto to horizontally center the container */
+  margin: 2px auto; /* Add margin and auto to horizontally center the container */
   padding: 20px;
   background-color: rgb(99, 97, 97);
-  height: 50em;
+  height: 49em;
   width: 80em; /* Set a maximum width for the container */
   border-radius: 2%;
   
