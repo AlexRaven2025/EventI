@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './profile.css';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import { getUserID } from './localStorage.js';
+
+
+
 
 export const Profile = () => {
   const [createdEvents, setCreatedEvents] = useState([]);
@@ -29,12 +33,19 @@ export const Profile = () => {
 
   return (
     <div className="profile-container">
+      <div className='sideBar-container'>
         <div className="button-container1">
-          <Button variant="secondary" size="lg" active>Add Event</Button>
+            <Link to="/EventCreateForm/?userID=verified&events">
+            <Button variant="secondary" size="lg" active='true'>Add Event</Button>
+            </Link>
         </div>
         <div className="button-container2">
-          <Button id="remove-button" size="lg" active>Remove</Button>
+          <Button id="remove-button" size="lg" active='true'>Remove</Button>
         </div>
+        <div className='button-container3'>
+          <button id='signout-button' size='lg' active='true'>signout</button>  
+        </div> 
+      </div>
       <div className="Card-Container">
         <div className="table-container">
           <h2>Events Created</h2>
@@ -50,7 +61,7 @@ export const Profile = () => {
               {/* Check if createdEvents is defined and not null before mapping */}
               {createdEvents &&
                 createdEvents.map((event) => (
-                  <tr key={'createdEvents_${event.id}'}>
+                  <tr key={`createdEvents_${event.id}`}>
                     <td>{event.event_name}</td>
                     <td>{event.event_description}</td>
                     <td>{event.event_location}</td>
@@ -73,7 +84,7 @@ export const Profile = () => {
               {/* Check if rsvpedEvents is defined and not null before mapping */}
               {rsvpedEvents &&
                 rsvpedEvents.map((event) => (
-                  <tr key={'rsvped_${event.id}'}>
+                  <tr key={`rsvped_${event.id}`}>
                     <td>{event.event_name}</td>
                     <td>{event.event_description}</td>
                     <td>{event.event_location}</td>

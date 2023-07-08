@@ -35,10 +35,19 @@
 .table-container td:first-child {
   text-align: left;
 }
-
-.profile-container {
+.sideBar-container {
   display: flex;
   flex-direction: column;
+  height: 1em;
+  width: 10em;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 1em; /* Align items to the left */
+  padding-left: 20px; 
+}
+.profile-container {
+  display: flex;
+  /* flex-direction: column;  */
   background-color: gray;
   min-height: 100vh;
   justify-content: flex-start;
@@ -50,11 +59,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70em;
+  width: 15em;
   height: 4em;
   background-color: rgb(145, 145, 145);
+  padding: 2px;
   margin-bottom: 5px;
-  margin-top: -0.5em;
+  margin-top: -25.5em;
   border-top-left-radius: 10%;
   border-top-right-radius: 10%;
   
@@ -64,17 +74,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70em;
+  width: 15em;
   height: 4em;
+  padding: 2px;
   background-color: rgb(145, 145, 145);
   margin-bottom: 5px;
-  border-bottom-left-radius: 10%;
-  border-bottom-right-radius: 10%;
   
 
 }
+.button-container3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15em;
+  height: 4em;
+  padding: 2px;
+  background-color: rgb(145, 145, 145);
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+  
+}
 
-.button-container1 button, .button-container2 button {
+.button-container1 button, .button-container2 button , .button-container3 button{
   text-decoration: none;
   background-color: rgb(145, 145, 145); 
   height: 3em;
@@ -82,7 +103,7 @@
   border: none;
 }
 
-.button-container1 button:hover ,.button-container2 button:hover{
+.button-container1 button:hover ,.button-container2 button:hover, .button-container3 button:hover{
   text-decoration: none;
   background-color: red;
   border-radius: 100%;

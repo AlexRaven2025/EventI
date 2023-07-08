@@ -5,7 +5,7 @@ import {LoginForm} from './componets/loginform.js';
 import {SignUp} from './componets/sign_up.js';
 import {Events} from './componets/events.js';
 import {Profile} from './componets/profile.js';
-import {EventCreateFrom} from './componets/EventCreateFrom.js';
+import {EventCreateForm} from './componets/EventCreateForm.js';
 
 function App() {
   const location = useLocation();
@@ -19,7 +19,7 @@ function App() {
       <Route path='SignUp' element={<SignUp  />} />
       <Route path='Events'  element={<Events/>} />
       <Route path='Profile' element={<Profile/>} />
-      <Route path='Create Event' element={< EventCreateFrom />} />
+      <Route path='EventCreateForm' element={< EventCreateForm />} />
     </Routes>
     </>
   );
