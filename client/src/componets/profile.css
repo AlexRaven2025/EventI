@@ -103,13 +103,6 @@
   border: none;
 }
 
-.button-container1 button:hover ,.button-container2 button:hover, .button-container3 button:hover{
-  text-decoration: none;
-  background-color: red;
-  border-radius: 100%;
-  height: 3.7em;
-  width: 8em;
-}
 
 .Card-Container {
   display: flex;
