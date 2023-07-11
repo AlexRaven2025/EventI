@@ -1,55 +1,55 @@
-.table-container {
+.table-containers {
   width: 100%;
   margin-right: 25em;
   height: 200px; /* Set a maximum height for the tables */
   /* margin-top: 46em; */
 }
 
-.table-container table {
+.table-containers table {
   width: 80em;
   border-collapse: collapse;
 }
 
-.table-container thead th {
+.table-containers thead th {
   background-color: #343a40;
   color: #fff;
   padding: 10px;
 }
 
-.table-container tbody tr:nth-of-type(odd) {
+.table-containers tbody tr:nth-of-type(odd) {
   background-color: #515253;
 }
 
 /* .table-container tbody tr:hover {
-  background-color: #0b0c0c;
+    background-color: #0b0c0c;
 } */
 
-.table-container th,
-.table-container td {
+.table-containers th,
+.table-containers td {
   padding: 10px;
   text-align: center;
   color: whitesmoke;
 }
 
-.table-container th:first-child,
-.table-container td:first-child {
+.table-containers th:first-child,
+.table-containers td:first-child {
   text-align: left;
 }
-.sideBar-container {
+.sideBar-containers {
   display: flex;
   flex-direction: column;
   height: 1em;
   width: 10em;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 1em; /* Align items to the left */
+   margin: 2em;/* Align items to the left */ 
   padding-left: 20px; 
 }
 .profile-container {
   display: flex;
   /* flex-direction: column;  */
   background-color: gray;
-  min-height: 100vh;
+  min-height: 90vh;
   justify-content: flex-start;
   align-items: center;
   padding: 20px;
@@ -58,7 +58,7 @@
 .button-container1 {
   display: flex;
   justify-content: center;
-  align-items: center;
+  text-decoration: none;
   width: 15em;
   height: 4em;
   background-color: rgb(145, 145, 145);
@@ -73,7 +73,6 @@
 .button-container2 {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 15em;
   height: 4em;
   padding: 2px;
@@ -85,7 +84,6 @@
 .button-container3 {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 15em;
   height: 4em;
   padding: 2px;
@@ -95,16 +93,23 @@
   
 }
 
-.button-container1 button, .button-container2 button , .button-container3 button{
-  text-decoration: none;
-  background-color: rgb(145, 145, 145); 
+.button-container1 button,
+.button-container2 button,
+.button-container3 button{
+  /* text-decoration: none; */
+  background-color: rgb(145, 145, 145);
   height: 3em;
   width: 7em;
+  margin-top: 2em;
   border: none;
+  /* Add the following code to center the text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
-.Card-Container {
+.Card-Containers {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,7 +122,7 @@
   border-radius: 2%;
   
 }
-.Card-Container > .table-container + .table-container {
+.Card-Containers > .table-containers + .table-containers {
   margin-top: -36em; /* Add margin between tables */
   margin-bottom: 12em;
 }

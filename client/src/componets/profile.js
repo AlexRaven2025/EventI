@@ -33,10 +33,10 @@ export const Profile = () => {
 
   return (
     <div className="profile-container">
-      <div className='sideBar-container'>
+      <div className='sideBar-containers'>
         <div className="button-container1">
-            <Link to="/EventCreateForm/?userID=verified&events">
-            <Button variant="secondary" size="lg" active='true'>Add Event</Button>
+            <Link to="/EventCreateForm/">
+            <Button id="addEvent" variant="secondary" size="lg" active='true'>Add Event</Button>
             </Link>
         </div>
         <div className="button-container2">
@@ -46,8 +46,8 @@ export const Profile = () => {
           <button id='signout-button' size='lg' active='true'>signout</button>  
         </div> 
       </div>
-      <div className="Card-Container">
-        <div className="table-container">
+      <div className="Card-Containers">
+        <div className="table-containers">
           <h2>Events Created</h2>
           <table>
             <thead>
@@ -55,6 +55,7 @@ export const Profile = () => {
                 <th scope="col">Event Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Location</th>
+                <th scope="col">Time</th>
               </tr>
             </thead>
             <tbody>
@@ -65,12 +66,13 @@ export const Profile = () => {
                     <td>{event.event_name}</td>
                     <td>{event.event_description}</td>
                     <td>{event.event_location}</td>
+                    <td>{event.event_time}</td>
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
-        <div className="table-container">
+        <div className="table-containers">
           <h2>Events RSVPed</h2>
           <table>
             <thead>
@@ -78,6 +80,7 @@ export const Profile = () => {
                 <th scope="col">Event Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Location</th>
+                <th scope="col">Time</th>
               </tr>
             </thead>
             <tbody>
@@ -88,12 +91,14 @@ export const Profile = () => {
                     <td>{event.event_name}</td>
                     <td>{event.event_description}</td>
                     <td>{event.event_location}</td>
+                    <td>{event.event_time}</td>
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
       </div>
+      
     </div>
   );
 };

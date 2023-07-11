@@ -1,41 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './EventCreateForm.css';
+import axios from 'axios';
 import { getUserID } from "./localStorage.js";
-const userID = getUserID();
+
 export const EventCreateForm = () => {
-  const [setEventList] = useState([]);
+  const [eventName, setEventName] = useState('');
+  const [eventDescription, setEventDescription] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
+  const [eventTime, setEventTime] = useState('');
+  const [createFailed, setCreateFailed] = useState(false);
 
-  useEffect(() => {
-    fetchEventData();
-  }, []);
+  const createEvent = () => {
+    const userID = getUserID();
+    const eventData = {
+      name: eventName,
+      description: eventDescription,
+      location: eventLocation,
+      time: eventTime,
+    };
 
-  const fetchEventData = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/users/profile', {
-        headers: { user_id:  userID }
+    axios
+      .post('http://localhost:3000/users/profile/create', eventData, {
+        headers: {
+          user_id: userID,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          // Event created successfully, perform necessary actions
+          window.location.href = 'http://localhost:3001/profile';
+        } else {
+          console.error('Failed to create event');
+          setCreateFailed(true);
+        }
+      })
+      .catch((error) => {
+        console.error('Error creating event:', error);
       });
-      if (response.ok) {
-        const data = await response.json();
-        setEventList(data.events);
-      } else {
-        console.error('Failed to fetch event data');
-      }
-    } catch (error) {
-      console.error('Error fetching event data:', error);
-    }
   };
 
   return (
     <div className='EventCreateForm-container'>
-      <label>Create A Event</label>
-      <div className='input-container'>
-        <input type='text' placeholder= 'Event Name' />
-        <input type='text' placeholder= 'Event Description'/>
-        <input type='text' placeholder= 'Event Location'/>
+      <div className='input-field-container'>
+        <div className='label-container'>
+          <label className='event-label'>Create An Event</label>
+        </div>
+        <div className='input-container'>
+          <input type='text' id='eventName' placeholder='Event Name' onChange={e => setEventName(e.target.value)} />
+          <input type='text' id='eventDescription' placeholder='Event Description' onChange={e => setEventDescription(e.target.value)} />
+          <input type='text' id='eventLocation' placeholder='Event Location' onChange={e => setEventLocation(e.target.value)} />
+          <input type='text' id='eventTime' placeholder='12:00 AM' onChange={e => setEventTime(e.target.value)} />
+        </div>
+        {createFailed && <div className='failedToCreate'>Failed to create event</div>}
+        <button type='submit' onClick={createEvent}>Create</button>
       </div>
-        
-      </div>
+    </div>
   );
-}
+};
 
 export default EventCreateForm;

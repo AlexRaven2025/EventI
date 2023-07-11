@@ -173,5 +173,122 @@ router.get('/profile', function(req, res, next) {
   });
 });
 
+// ---------------------------Create-User-Event------------------------------------------------
+
+router.post('/profile/create', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  // Assuming the userID and input values are received in the request body
+  var userID = req.headers.user_id;
+  var name = req.body.name;
+  var description = req.body.description;
+  var location = req.body.location;
+  var time = req.body.time;
+
+  pool.getConnection(function(err, connection) {
+    if (err) {
+      console.log('Failed to connect to the database:', err);
+      return res.status(500).json({ error: 'Failed to connect to the database' });
+    }
+
+    // Check the user_state in the database
+    var checkUserQuery = 'SELECT user_state FROM eventi.users WHERE user_id = ?';
+    connection.query(checkUserQuery, [userID], function(err, userResult) {
+      if (err) {
+        console.log('Failed to fetch user details:', err);
+        connection.release();
+        return res.status(500).json({ error: 'Failed to fetch user details' });
+      }
+
+      // Check if the user_state is true
+      if (userResult.length > 0 && userResult[0].user_state) {
+        // Retrieve the highest event_id number
+        var getHighestEventIdQuery = 'SELECT MAX(event_id) AS max_event_id FROM eventi.events;';
+        connection.query(getHighestEventIdQuery, function(err, maxEventIdResult) {
+          if (err) {
+            console.log('Failed to fetch highest event_id:', err);
+            connection.release();
+            return res.status(500).json({ error: 'Failed to fetch highest event_id' });
+          }
+
+          // Generate a new unique event_id by incrementing the highest event_id by 1
+          var newEventId = maxEventIdResult[0].max_event_id + 1;
+
+          // Construct the SQL query with placeholders
+          var sqlQuery = 'INSERT INTO eventi.events (event_id, event_name, event_description, event_location, event_time, user_id) VALUES (?, ?, ?, ?, ?, ?);';
+
+          // Execute the SQL query with the input values
+          connection.query(sqlQuery, [newEventId, name, description, location, time, userID], function(err, results) {
+            connection.release(); // Release the database connection
+
+            if (err) {
+              console.log('Failed to create event:', err);
+              return res.status(500).json({ error: 'Failed to create event' });
+            }
+
+            // Return a success response
+            res.status(200).json({ message: 'Event created successfully' });
+          });
+        });
+      } else {
+        connection.release(); // Release the database connection
+        // Return a response asking the user to login
+        res.status(401).json({ error: 'Please login to perform this action' });
+      }
+    });
+  });
+});
+
+
+// ---------------------------------Remove Events-------------------------------
+
+router.delete('/profile/remove', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  var userID = req.body.userID;
+  var eventName = req.body.eventName;
+
+  pool.getConnection(function(err, connection) {
+    if (err) {
+      console.log('Failed to connect to the database:', err);
+      return res.status(500).json({ error: 'Failed to connect to the database' });
+    }
+
+    // Construct the SQL query to select the event based on user ID and event name
+    var sqlQuery = 'SELECT * FROM eventi.events WHERE user_id = ? AND event_name = ?';
+
+    // Execute the SQL query with the user ID and event name parameters
+    connection.query(sqlQuery, [userID, eventName], function(err, results) {
+      if (err) {
+        console.log('Failed to fetch event:', err);
+        connection.release();
+        return res.status(500).json({ error: 'Failed to fetch event' });
+      }
+
+      // Check if the event exists
+      if (results.length === 0) {
+        connection.release();
+        return res.status(404).json({ error: 'Event not found' });
+      }
+
+      // Event found, proceed with deletion
+      var deleteQuery = 'DELETE FROM eventi.events WHERE user_id = ? AND event_name = ?';
+      connection.query(deleteQuery, [userID, eventName], function(err, deleteResult) {
+        connection.release();
+
+        if (err) {
+          console.log('Failed to delete event:', err);
+          return res.status(500).json({ error: 'Failed to delete event' });
+        }
+
+        // Check if any rows were affected by the delete query
+        if (deleteResult.affectedRows === 0) {
+          return res.status(500).json({ error: 'Failed to delete event' });
+        }
+
+        // Return a success response
+        res.status(200).json({ message: 'Event deleted successfully' });
+      });
+    });
+  });
+});
 
 module.exports = router;

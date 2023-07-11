@@ -3,9 +3,10 @@
     display: flex;
     flex-direction: column;
     background-image: linear-gradient(to bottom left, darkgray, black);
+    height: 90vh;
 }
 .table-events-container{
-    min-height: 100vh;
+    min-height: 89vh;
 }
 .top-cover {
     position: relative; /* Added position property */
@@ -31,12 +32,11 @@
 
 .local-Event-decription {
     position: relative; /* Added position property */
-    top: -2.5em; /* Adjust the value as per your preference */
+    top: -1em; /* Adjust the value as per your preference */
     display: flex;
     justify-content: space-between;
     background-color: rgb(59, 59, 59);
     height: 45em;
-    width: 25em;
     padding: 2px;
     border-bottom-left-radius: 3%;
     
@@ -54,26 +54,40 @@
     border-bottom-left-radius: 3%;
     border-bottom-right-radius: 3%;
 }
-.local-event-calender {
-    display: flex;
-    position: relative;
-    margin-top: -47.6em; 
-    float: right;
-    align-content: center;
-    background-color: white;
-    height: 722px;
-    width: 1420px;
-    border-bottom-right-radius: 3%
-}  
-.Event-cards {
-    display:flex;
-    position: fixed;
-    height: 10rem;
-    justify-content: flex-start;
-    margin-top: 5em;
-    background-color: lightgray;
-    border-radius: 5%;
-    border-style: solid;
-    border: 2px;
-    border-color: gray;
+ .table-container {
+  width: 100%;
+  margin-right: 25em;
+  height: 200px; /* Set a maximum height for the tables */
+  /* margin-top: 46em; */
+}
+
+.table-container table {
+  width: 110.6em;
+  border-collapse: collapse;
+}
+
+.table-container thead th {
+  background-color: rgb(78, 78, 78);
+  color: #fff;
+  padding: 10px;
+}
+
+.table-container tbody tr:nth-of-type(odd) {
+  background-color: #818181;
+}
+
+/* .table-container tbody tr:hover {
+  background-color: #0b0c0c;
+} */
+
+.table-container th,
+.table-container td {
+  padding: 10px;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.table-container th:first-child,
+.table-container td:first-child {
+  text-align: left;
 }
