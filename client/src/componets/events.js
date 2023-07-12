@@ -9,9 +9,7 @@ export const Events = () => {
     useEffect(() => {
     // Fetch user profile data
     axios
-      .get('http://localhost:3000/users/profile', {
-        headers: { user_id: userID },
-      })
+      .get('http://localhost:3000/users/explore')
       .then((response) => {
         setCreatedEvents(response.data.events);
         console.log(response.data.events);

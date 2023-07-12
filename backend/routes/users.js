@@ -45,6 +45,32 @@ router.post('/', function(req, res, next) {
   });
 });
 
+// ---------------------------------------------------explore--events----------------------------------
+router.get('/explore', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+
+  pool.getConnection(function(err, connection) {
+    if (err) {
+      console.log('Failed to connect to the database:', err);
+      return res.status(500).json({ error: 'Failed to connect to the database' });
+    }
+    
+    var eventsExplore = 'SELECT * FROM eventi.events;'; // Corrected table name from "evenst" to "events"
+
+    connection.query(eventsExplore, function(err, result) {
+      connection.release();
+      
+      if (err) {
+        console.log('Failed to fetch events:', err);
+        return res.status(500).json({ error: 'Failed to fetch events' });
+      }
+      
+      res.status(200).json({ events: result }); // Changed the response object to contain the "events" key
+    });
+  });
+});
+
+
 // ----------------------------------------------------------------------------------------------------
 // ------------------------------------VERIFY The User-------------------------------------------------
 router.post('/verify', function(req, res, next) {
@@ -269,20 +295,21 @@ router.post('/profile/create', function(req, res, next) {
 
 router.delete('/profile/remove', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-  var userID = req.body.userID;
-  var eventName = req.body.eventName;
-
+  var userID = req.headers.user_id;
+  var eventID = req.body.eventIDs;
+  console.log('userID:', userID);
+  console.log('eventID:', eventID);
   pool.getConnection(function(err, connection) {
     if (err) {
       console.log('Failed to connect to the database:', err);
       return res.status(500).json({ error: 'Failed to connect to the database' });
     }
 
-    // Construct the SQL query to select the event based on user ID and event name
-    var sqlQuery = 'SELECT * FROM eventi.events WHERE user_id = ? AND event_name = ?';
+    // Construct the SQL query to select the event based on user ID and event ID
+    var sqlQuery = 'SELECT * FROM eventi.events WHERE user_id = ? AND event_id = ?';
 
-    // Execute the SQL query with the user ID and event name parameters
-    connection.query(sqlQuery, [userID, eventName], function(err, results) {
+    // Execute the SQL query with the user ID and event ID parameters
+    connection.query(sqlQuery, [userID, eventID], function(err, results) {
       if (err) {
         console.log('Failed to fetch event:', err);
         connection.release();
@@ -296,25 +323,31 @@ router.delete('/profile/remove', function(req, res, next) {
       }
 
       // Event found, proceed with deletion
-      var deleteQuery = 'DELETE FROM eventi.events WHERE user_id = ? AND event_name = ?';
-      connection.query(deleteQuery, [userID, eventName], function(err, deleteResult) {
-        connection.release();
+      var deleteQuery = 'DELETE FROM eventi.event_rsvps WHERE event_id = ?';
+      var deleteQuery1 = 'DELETE FROM eventi.events WHERE event_id = ?';
 
+      connection.query(deleteQuery, [eventID], function(err, deleteResult) {
         if (err) {
-          console.log('Failed to delete event:', err);
-          return res.status(500).json({ error: 'Failed to delete event' });
+          console.log('Failed to delete event_rsvps:', err);
+          connection.release();
+          return res.status(500).json({ error: 'Failed to delete event_rsvps' });
         }
 
-        // Check if any rows were affected by the delete query
-        if (deleteResult.affectedRows === 0) {
-          return res.status(500).json({ error: 'Failed to delete event' });
-        }
+        connection.query(deleteQuery1, [eventID], function(err, deleteResult1) {
+          connection.release();
+          if (err) {
+            console.log('Failed to delete event:', err);
+            return res.status(500).json({ error: 'Failed to delete event' });
+          }
 
-        // Return a success response
-        res.status(200).json({ message: 'Event deleted successfully' });
+          console.log('Deletion successful');
+          // Return a success response
+          res.status(200).json({ message: 'Event deleted successfully' });
+        });
       });
     });
   });
 });
+
 
 module.exports = router;

@@ -22,7 +22,7 @@
   background-color: red;
   border-radius: 50%;
 }
-label {
+.event-label {
   display: flex;
   justify-content: center;
   margin-top: 0.5em;

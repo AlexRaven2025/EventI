@@ -25,14 +25,14 @@
     font-size: 4em;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    margin-left: 1em; /* Adjust the margin value as per your preference */
+    margin-left: 1em; 
     background-color: red;
     border-radius: 50%;
 }
 
 .local-Event-decription {
-    position: relative; /* Added position property */
-    top: -1em; /* Adjust the value as per your preference */
+    position: relative; 
+    top: -1em; 
     display: flex;
     justify-content: space-between;
     background-color: rgb(59, 59, 59);
@@ -57,12 +57,12 @@
  .table-container {
   width: 100%;
   margin-right: 25em;
-  height: 200px; /* Set a maximum height for the tables */
+  height: 200px; 
   /* margin-top: 46em; */
 }
 
 .table-container table {
-  width: 110.6em;
+  width: 113.9em;
   border-collapse: collapse;
 }
 
