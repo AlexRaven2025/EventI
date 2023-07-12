@@ -6,15 +6,29 @@ import { Link } from 'react-router-dom';
 import { getUserID } from './localStorage.js';
 
 
-
-
 export const Profile = () => {
   const [createdEvents, setCreatedEvents] = useState([]);
   const [rsvpedEvents, setRsvpedEvents] = useState([]);
 
   const userID = getUserID();
   console.log(userID);
-
+  const signOut = ()=>{
+    axios.post('http://localhost:3000/users/profile/signout',{
+      headers: {user_id: userID},
+    })  
+      .then((response)=> {
+          if (response.status === 200) {
+          // Event created successfully, perform necessary actions
+          window.location.href = 'http://localhost:3001/';
+          }else{
+          console.error('Failed to create event');
+          }
+        })
+      .catch((error) => {
+        console.error('Error creating event:', error);
+      
+      });
+  };
   useEffect(() => {
     // Fetch user profile data
     axios
@@ -43,7 +57,7 @@ export const Profile = () => {
           <Button id="remove-button" size="lg" active='true'>Remove</Button>
         </div>
         <div className='button-container3'>
-          <button id='signout-button' size='lg' active='true'>signout</button>  
+          <button id='signout-button' size='lg' active='true'onClick={signOut}>signout</button>  
         </div> 
       </div>
       <div className="Card-Containers">
@@ -61,8 +75,9 @@ export const Profile = () => {
             <tbody>
               {/* Check if createdEvents is defined and not null before mapping */}
               {createdEvents &&
-                createdEvents.map((event) => (
-                  <tr key={`createdEvents_${event.id}`}>
+                createdEvents.map((event, index) => (
+                  <tr key={`createdEvents_${index}`}>
+
                     <td>{event.event_name}</td>
                     <td>{event.event_description}</td>
                     <td>{event.event_location}</td>
@@ -86,8 +101,8 @@ export const Profile = () => {
             <tbody>
               {/* Check if rsvpedEvents is defined and not null before mapping */}
               {rsvpedEvents &&
-                rsvpedEvents.map((event) => (
-                  <tr key={`rsvped_${event.id}`}>
+                rsvpedEvents.map((event, index) => (
+                  <tr key={`rsvped_${index}`}>
                     <td>{event.event_name}</td>
                     <td>{event.event_description}</td>
                     <td>{event.event_location}</td>

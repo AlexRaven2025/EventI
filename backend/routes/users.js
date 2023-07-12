@@ -115,6 +115,32 @@ router.post('/verify', function(req, res, next) {
   });
 });
 
+// --------------------------User-SignOut------------------------------------------------------------
+router.post('/profile/signout', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  var userID = req.headers.user_id;
+  
+  pool.getConnection(function(err, connection) {
+    if (err) {
+      console.log('Failed to connect to the database:', err);
+      return res.status(500).json({ error: 'Failed to connect to the database' });
+    }
+    
+    var updateQuery = 'UPDATE eventi.users SET user_state = false WHERE user_id = ?';
+
+    connection.query(updateQuery, [userID], function(err, result) {
+      connection.release();
+      
+      if (err) {
+        console.log('Failed to update user state:', err);
+        return res.status(500).json({ error: 'Failed to update user state' });
+      }
+      
+      res.status(200).json({ message: 'User signed out successfully' });
+    });
+  });
+});
+
 
 // ----------------------------------------------------------------------------------------------------
 // ---------------------------user-Profile-route-------------------------------------------------------
